@@ -41,7 +41,8 @@
 
 ;;;###autoload
 (defun wiki-this ()
-  "")
+  ""
+  (interactive))
 
 (provide 'wiki-this)
 ;;; wiki-this.el ends here
