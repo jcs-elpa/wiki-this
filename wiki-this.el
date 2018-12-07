@@ -7,7 +7,7 @@
 ;; Description: Simply search in Wikipedia under point.
 ;; Keyword: search wiki wikipedia
 ;; Version: 0.0.1
-;; Package-Requires: ((emacs "24.4"))
+;; Package-Requires: ((emacs "24.4") (s "1.12.0"))
 ;; URL: https://github.com/jcs090218/wiki-this
 
 ;; This file is NOT part of GNU Emacs.
@@ -32,17 +32,54 @@
 
 ;;; Code:
 
+(require 's)
+
+
 (defgroup wiki-this nil
   "Simply search in Wikipedia under point"
   :prefix "wiki-this-"
-  :group 'tool
+  :group 'convenience
   :link '(url-link :tag "Repository" "https://github.com/jcs090218/wiki-this"))
 
 
+(defcustom wiki-this-wiki-url "https://-LANG-.wikipedia.org/wiki/"
+  "Wikipedia url format."
+  :group 'wiki-this
+  :type 'string)
+
+(defvar wiki-this-language "en"
+  "Language perfer to search with Wikipedia.")
+
+
+(defun wiki-this-prefix-url ()
+  "Get the prefix url for Wikipedia."
+  (s-replace "-LANG-" wiki-this-language wiki-this-wiki-url))
+
+(defun wiki-this-keyword-to-url (keyword)
+  "Convert KEYWORD to url and return it."
+  (let ((keyword-url ""))
+    (setq keyword-url (s-replace " " "_" keyword))
+    keyword-url))
+
+(defun wiki-this-url (keyword)
+  "Return the full url for Wikipedia by KEYWORD."
+  (concat (wiki-this-prefix-url) (wiki-this-keyword-to-url keyword)))
+
 ;;;###autoload
 (defun wiki-this ()
-  ""
-  (interactive))
+  "Search under the point."
+  (interactive)
+  (let ((final-url "")
+        (keyword ""))
+    (if (use-region-p)
+        (setq keyword (buffer-substring (region-beginning) (region-end)))
+      (setq keyword (thing-at-point 'word)))
+
+    ;; Do the search.
+    (when keyword
+      (setq final-url (wiki-this-url keyword))
+      (message "URL: %s" final-url)
+      (browse-url final-url))))
 
 (provide 'wiki-this)
 ;;; wiki-this.el ends here
