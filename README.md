@@ -6,8 +6,12 @@
 Simply search in Wikipedia under point. <br/><br/>
 
 
-## Screenshot ##
-<img src="./screenshot/wiki-this-demo.gif" width="600" height="255"/>
+## Key Bindings ##
+There are no default key bindings within the plugin. You can simply bind 
+`wiki-this` to any key you want.
+```
+(define-key global-map (kbd "C-w i k i") #'wiki-this)
+```
 
 
 ## Contribution ##
