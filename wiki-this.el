@@ -42,7 +42,7 @@
   :link '(url-link :tag "Repository" "https://github.com/jcs090218/wiki-this"))
 
 
-(defcustom wiki-this-wiki-url "https://-LANG-.wikipedia.org/wiki/"
+(defcustom wiki-this-wiki-url "https://%s.wikipedia.org/wiki/%s"
   "Wikipedia url format."
   :group 'wiki-this
   :type 'string)
@@ -50,10 +50,6 @@
 (defvar wiki-this-language "en"
   "Language perfer to search with Wikipedia.")
 
-
-(defun wiki-this-prefix-url ()
-  "Get the prefix url for Wikipedia."
-  (s-replace "-LANG-" wiki-this-language wiki-this-wiki-url))
 
 (defun wiki-this-keyword-to-url (keyword)
   "Convert KEYWORD to url and return it."
@@ -63,23 +59,23 @@
 
 (defun wiki-this-url (keyword)
   "Return the full url for Wikipedia by KEYWORD."
-  (concat (wiki-this-prefix-url) (wiki-this-keyword-to-url keyword)))
+  (format wiki-this-wiki-url wiki-this-language (wiki-this-keyword-to-url keyword)))
 
 ;;;###autoload
-(defun wiki-this ()
+(defun wiki-this (&optional start end)
   "Search under the point."
-  (interactive)
+  (interactive "r")
   (let ((final-url "")
-        (keyword ""))
-    (if (use-region-p)
-        (setq keyword (buffer-substring (region-beginning) (region-end)))
-      (setq keyword (thing-at-point 'word)))
-
+        (keyword (if (use-region-p)
+                     (buffer-substring start end)
+                   (thing-at-point 'symbol))))
     ;; Do the search.
-    (when keyword
-      (setq final-url (wiki-this-url keyword))
-      (message "URL: %s" final-url)
-      (browse-url final-url))))
+    (if keyword
+        (progn
+          (setq final-url (wiki-this-url keyword))
+          (browse-url final-url)
+          (message "Search [%s] in Wikipedia, URL => '%s'" keyword final-url))
+      (message "Nothing to search with Wikipedia!"))))
 
 (provide 'wiki-this)
 ;;; wiki-this.el ends here
