@@ -42,13 +42,15 @@
   :link '(url-link :tag "Repository" "https://github.com/jcs090218/wiki-this"))
 
 
-(defcustom wiki-this-wiki-url "https://%s.wikipedia.org/wiki/%s"
+(defconst wiki-this-wiki-url "https://%s.wikipedia.org/wiki/%s"
   "Wikipedia url format."
   :group 'wiki-this
   :type 'string)
 
-(defvar wiki-this-language "en"
-  "Language perfer to search with Wikipedia.")
+(defcustom wiki-this-language "en"
+  "Language perfer to search with Wikipedia."
+  :group 'wiki-this
+  :type 'string)
 
 
 (defun wiki-this-keyword-to-url (keyword)
@@ -63,7 +65,9 @@
 
 ;;;###autoload
 (defun wiki-this (&optional start end)
-  "Search under the point."
+  "Search under the point.
+START : region start point.
+END : region end point."
   (interactive "r")
   (let ((final-url "")
         (keyword (if (use-region-p)
