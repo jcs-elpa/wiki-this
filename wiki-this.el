@@ -36,7 +36,7 @@
 
 
 (defgroup wiki-this nil
-  "Simply search in Wikipedia under point"
+  "Simply search in Wikipedia under point."
   :prefix "wiki-this-"
   :group 'convenience
   :link '(url-link :tag "Repository" "https://github.com/jcs090218/wiki-this"))
