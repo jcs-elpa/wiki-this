@@ -4,7 +4,7 @@
 
 # wiki-this #
 
-Simply search in Wikipedia under point. <br/><br/>
+Simply search in Wikipedia under point.
 
 
 ## Configurations ##
