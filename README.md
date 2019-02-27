@@ -10,14 +10,14 @@ Simply search in Wikipedia under point. <br/><br/>
 ## Configurations ##
 You can set the prefer language by setting `wiki-this-language` variable. 
 The default setting is `en`.
-```
+```el
 (setq wiki-this-language "en")
 ```
 
 ## Key Bindings ##
 There are no default key bindings within the plugin. You can simply bind 
 `wiki-this` to any key you want.
-```
+```el
 (define-key global-map (kbd "C-w i k i") #'wiki-this)
 ```
 
