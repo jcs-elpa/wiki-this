@@ -50,7 +50,6 @@
   :group 'wiki-this
   :type 'string)
 
-
 (defun wiki-this-keyword-to-url (keyword)
   "Convert KEYWORD to url and return it."
   (let ((keyword-url ""))
