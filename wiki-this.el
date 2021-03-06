@@ -34,13 +34,11 @@
 
 (require 's)
 
-
 (defgroup wiki-this nil
   "Simply search in Wikipedia under point."
   :prefix "wiki-this-"
   :group 'convenience
   :link '(url-link :tag "Repository" "https://github.com/jcs090218/wiki-this"))
-
 
 (defconst wiki-this-wiki-url "https://%s.wikipedia.org/wiki/%s"
   "Wikipedia url format."
